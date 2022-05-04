@@ -1,6 +1,6 @@
 package fiscalCode;
 
-import java.time.Month;
+
 import java.util.Scanner;
 
 import main.Person;
@@ -67,7 +67,7 @@ public class FiscalCodeOperation {
 		StringBuffer fiscalCode=new StringBuffer("");
 		
 		int cnt=0;
-//		getDateOfBirhtInInteger(person.getBirthDay());
+
 		String lastName=person.getLastName().toUpperCase();
 		if(lastName.length()<3) fiscalCode.append(String.format("%.3s",lastName+"XXX"));
 		else {
@@ -120,6 +120,5 @@ public class FiscalCodeOperation {
 		
 	}
 	
-	//{Months.JENUARY,Months.FEBRUARY,Months.MARCH,Months.APRIL,Months.MAY,Months.JUNE,Months.JULY,Months.AUGUST,Months.SEPTEMBER,Months.OCTOBER,Months.NOVEMBER,Months.DECEMBER};
 	
 }
