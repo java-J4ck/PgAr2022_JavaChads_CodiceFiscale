@@ -1,14 +1,16 @@
 package main;
 
+
 import fiscalCode.FiscalCodeOperation;
 
 public class Main {
+
+	
 
 	public static void main(String[] args) {
 		Comune comune=new Comune("roncacity","B157");
 		Person person=new Person("giacomo","baresi",'M',"2002-09-06",comune);
 		System.out.println(FiscalCodeOperation.FiscalCodeGenerator(person));
-		System.out.println(FiscalCodeOperation.checkFiscalCode(FiscalCodeOperation.FiscalCodeGenerator(person)));
 	}
 
 }

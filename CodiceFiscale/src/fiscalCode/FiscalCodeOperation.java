@@ -60,6 +60,13 @@ public class FiscalCodeOperation {
 			}
 		}
 		if(!found) return false;//se non trova il mese vuol dire che la lettera è sbagliata e quindi anche il codice fiscale
+		String paritalFiscalCode=fiscalCode.substring(0, fiscalCode.length()-1);//controlla se corrispondono i caratteri di controllo
+		if(fiscalCode.charAt(fiscalCode.length()-1)!=ControlCharacter.getControlCharacter(paritalFiscalCode)) return false;// se non corrispondono il codice fiscale è scorretto
+		//controllo nome e cognome
+		for(int i=1;i<6;i++) {//controlla che le consonanti e le vocali nel nome e cognome siano corrette
+			if (fiscalCode.charAt(i)!='X' && i!=3)
+			if (searchArray(VOCALI,fiscalCode.charAt(i-1)) && !searchArray(VOCALI,fiscalCode.charAt(i)))return false;// non ci può essere una vocale prima di una consonante
+		}
 		
 		return true;//se si arriva fino a questo punto allora il codice fiscale è giusto
 	}
