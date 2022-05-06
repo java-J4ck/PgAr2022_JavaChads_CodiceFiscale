@@ -1,4 +1,4 @@
-package fiscalcode;
+package fiscalCode;
 
 import java.util.HashMap;
 import java.util.Map;

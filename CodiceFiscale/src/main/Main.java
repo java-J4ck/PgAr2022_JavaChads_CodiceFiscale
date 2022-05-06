@@ -1,14 +1,11 @@
 package main;
 
 
+
 import java.io.File;
 import java.util.ArrayList;
 
-import xmlutility.*;
-import fiscalcode.FiscalCodeOperation;
-
-
-import fiscalcode.*;
+import xmlutility.XMLUtility;
 
 
 public class Main {
