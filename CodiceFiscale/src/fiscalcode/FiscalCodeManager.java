@@ -38,7 +38,7 @@ public class FiscalCodeManager {
 	public String getFiscalCode(String fiscalCode) {
 		String returnedFiscalCode="ASSENTE";
 		if(allFiscalCode.contains(fiscalCode)) {
-			UnmatchedFiscalCode.remove(fiscalCode);//se il codice fiscale è presente toglie esso dal'arra degli spaiati
+			UnmatchedFiscalCode.remove(fiscalCode);//se il codice fiscale è presente toglie esso dal'array degli spaiati
 			returnedFiscalCode=fiscalCode;
 		}
 		return returnedFiscalCode;
