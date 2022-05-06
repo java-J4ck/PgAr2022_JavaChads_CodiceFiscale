@@ -1,18 +1,25 @@
 package main;
 
+
 import java.io.File;
 import java.util.ArrayList;
 
 import xmlutility.*;
 import fiscalcode.FiscalCodeOperation;
 
+
+import fiscalcode.*;
+
+
 public class Main {
+
+	
 
 	public static void main(String[] args) {
 		
 		/**
 		Comune comune=new Comune("roncacity","B157");
-		Person person=new Person("giacomo","baresi",'M',"2002-09-06",comune,null);
+		Person person=new Person("giacomo","baresi",'M',"2002-09-06",comune);
 		System.out.println(FiscalCodeOperation.FiscalCodeGenerator(person));
 		**/
 		
@@ -41,9 +48,6 @@ public class Main {
 			System.out.println("Comune di nascita : " + q.getBirthPlace().getName());
 			System.out.println("Data di nascita : " + q.getBirthDay());
 		}
-		
-		
-	
 	}
 
 }

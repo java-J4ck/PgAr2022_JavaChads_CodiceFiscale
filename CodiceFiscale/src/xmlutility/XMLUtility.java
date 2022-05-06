@@ -165,7 +165,7 @@ public class XMLUtility {
 					
 				}
 				
-				people.add(new Person(nome, cognome, sesso.charAt(0), data_nascita, comune, ""));
+				people.add(new Person(nome, cognome, sesso.charAt(0), data_nascita, comune));
 					
 			}
 			
