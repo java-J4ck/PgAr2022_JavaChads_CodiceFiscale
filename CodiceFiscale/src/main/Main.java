@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import xmlutility.XMLUtility;
+import xmlutility.XmlWriter;
 
 
 public class Main {
@@ -29,7 +30,7 @@ public class Main {
 		c = XMLUtility.readComuni(f);
 		p = XMLUtility.readPerson(i, c);
 		
-		
+		XmlWriter.XmlWrite(null);
 		
 		/*
 		for(Comune k : c) {
@@ -38,13 +39,15 @@ public class Main {
 		*/
 	
 		
-		for(Person q : p) {
+	/*	for(Person q : p) {
 			System.out.println("Nome : " + q.getName());
 			System.out.println("Cognome : " + q.getLastName());
 			System.out.println("Sesso : " + q.getSex());
 			System.out.println("Comune di nascita : " + q.getBirthPlace().getName());
 			System.out.println("Data di nascita : " + q.getBirthDay());
-		}
+		}*/
+		
+		
 	}
 
 }
