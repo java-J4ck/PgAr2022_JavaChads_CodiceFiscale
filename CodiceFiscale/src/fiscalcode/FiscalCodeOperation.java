@@ -7,24 +7,25 @@ import main.Person;
 
 public class FiscalCodeOperation {
 	private static final int MONTH_LETTER_POSITION = 8;//posizione della lettera del mese
-	private static final int GIRL_DAY_OFFSET = 40;//offset del giorno di nascita se si è donna
+	private static final int GIRL_DAY_OFFSET = 40;//offset del giorno di nascita per le donne
 	private static final int END_VALUE_OF_NUMBERS = 57;//estremo superiore dei valori dei numeri nella tabella ascii
 	private static final int START_VALUE_OF_NUMBERS = 48;//estremo inferiore dei valori dei numeri nella tabella ascii
 	private static final int END_VALUE_OF_LETTERS = 90;//estremo superiore dei valori delle lettere nella tabella ascii
 	private static final int START_VALUE_OF_LETTERS = 65;//estremo inferiore dei valori delle lettere nella tabella ascii
 	private static final int FISCAL_CODE_LENGTH = 16;//lunghezza del codice fiscale
 	private static final Months[] POSSIBLE_MONTH= Months.values();//array contenente tutti i mesi 
-	private static final String FISCAL_CODE_STRUCTURE="AAAAAA11A11A111A";//struttura del codice fiscale(tramite A e 1 dice come sono disposti cifre e lettere)
-	private static final char[] VOCALI= {'A','E','I','O','U'};//array contenente vocali
+	private static final String FISCAL_CODE_STRUCTURE="AAAAAA11A11A111A";//struttura del codice fiscale (A = lettera, 1 = cifra)
+	private static final char[] VOCALI= {'A','E','I','O','U'};//array contenente le vocali
 	
 	/**
-	 * <ul>controlla se il codice fiscale è corretto tramite:
-	 * <li>lunghezza del codice(deve avere 16 caratteri)</li>
-  	 * <li>disposizione dei caratteri(il posto dei numeri e le lettere deve essere sempre uguale)</li>
-  	 * <li>verifica se il giorno di nascita è possibile</li></ul>
+	 * 
+	 * <ul>Metodo che controlla se il codice fiscale è corretto verificando che:
+	 * <li>La lunghezza del codice e' esatta (deve avere 16 caratteri)</li>
+  	 * <li>La disposizione dei caratteri e delle cifre siano corrette</li>
+  	 * <li>Il giorno di nascita esiste realmente</li></ul>
   	 *  
-	 * @param fiscalCode codice fiscale
-	 * @return true se corretto false altrimenti
+	 * @param fiscalCode Codice fiscale da controllare
+	 * @return True se il codice fiscale e' corretto, false altrimenti
 	 */
 	public static boolean checkFiscalCode(String fiscalCode) {
 		boolean found=false;
@@ -71,6 +72,7 @@ public class FiscalCodeOperation {
 		return true;//se si arriva fino a questo punto allora il codice fiscale è giusto
 	}
 	
+	
 	private static boolean searchArray(char[] array,char character) {//cerca un carattere in un array
 		for(char c: array) {
 			if(character==c) return true;
@@ -80,9 +82,9 @@ public class FiscalCodeOperation {
 	
 	
 	/**
-	 * classe che genera un codice fiscale
-	 * @param person persona contenente i dati utili
-	 * @return il codice fiscale
+	 * Metodo che genera un codice fiscale
+	 * @param person Oggetto di tipo <b>Person</b> contenente i dati della persona di cui si vuole generare il codice fiscale
+	 * @return Il codice fiscale
 	 */
 	public static String FiscalCodeGenerator(Person person) {
 		StringBuffer fiscalCode=new StringBuffer("");

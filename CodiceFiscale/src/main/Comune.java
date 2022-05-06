@@ -1,12 +1,13 @@
 package main;
+
 /**
- * classe che rappresenta il comune
- * 
+ * Classe che rappresenta un generico comune 
  *
  */
+
 public class Comune {
 	private String name;
-	private String code;//codice catastale
+	private String code; // Codice catastale
 	
 	public Comune() {}
 	
@@ -15,16 +16,15 @@ public class Comune {
 		this.name = name;
 		this.code = code;
 	}
+	
 	/**
-	 * prende il nome
-	 * @return nome del comune
+	 * @return Nome del comune
 	 */
 	public String getName() {
 		return name;
 	}
-	/**
-	 * prende il codice catastale
-	 * @return codice catastale
+	/** 
+	 * @return Codice catastale
 	 */
 	public String getCode() {
 		return code;

@@ -8,8 +8,6 @@ import javax.xml.stream.*;
 /**
  * 
  * Classe che implementa un generico lettore di file .xml 
- * 
- * @author I JAVACHADS
  *
  */
 
