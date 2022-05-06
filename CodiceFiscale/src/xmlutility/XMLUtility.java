@@ -180,11 +180,6 @@ public class XMLUtility {
 	
 	
 	
-	
-	
-	
-	
-	
 	public static ArrayList<String> readFiscalCode(File fcFile) {
 		XMLReader xmlr = new XMLReader(fcFile);
 		ArrayList<String> fiscalCodes = new ArrayList<String>();

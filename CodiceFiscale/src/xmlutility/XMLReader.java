@@ -7,11 +7,12 @@ import javax.xml.stream.*;
 
 /**
  * 
- * Classe che implementa un generico lettore di file .xml
+ * Classe che implementa un generico lettore di file .xml 
  * 
- * @author 
+ * @author I JAVACHADS
  *
  */
+
 public class XMLReader {
 
 	private static final String UNIX_FILE_SEPARATOR = "/";
@@ -29,18 +30,20 @@ public class XMLReader {
 	
 	/**
 	 * Costruttore della classe.
-	 * Riceve una variabile di tipo <b>File</b> in ingresso, la quale deve contenere il nome del file che si desidera leggere (o l'intera path).
-	 * Viene controllato se il file .xml specificato puo' effettivamente essere letto (in caso contrario stampa un messaggio di errore) e
+	 * <p>
+	 * Riceve una variabile di tipo <b>File</b> in ingresso, la quale deve contenere il nome del file (o l'intera path che porta al file) xml che si desidera leggere.
+	 * Viene controllato se il file specificato puo' effettivamente essere letto e se ha l'estesione corretta (.xml) (in caso contrario stampa un messaggio di errore) e
 	 * inizializza il lettore di file xml.
+	 * </p>
 	 * 
 	 * @param inputFile <b>Nome del file</b> .xml che si desidera leggere
 	 */
 	public XMLReader(File inputFile) {
-		if(inputFile.canRead() && getFileExtension(inputFile).equals("xml")) {
+		if(inputFile.canRead() && getFileExtension(inputFile).equals("xml")) {   // Controllo se il file puo' essere letto e se e' un file xml
 			this.inputFile = inputFile;
 			try {
-				xmlif = XMLInputFactory.newInstance();
-				xmlr = xmlif.createXMLStreamReader(new FileInputStream(inputFile));
+				xmlif = XMLInputFactory.newInstance();     
+				xmlr = xmlif.createXMLStreamReader(new FileInputStream(inputFile));  // Inizializzo un nuovo oggetto XMLStreamReader
 			} 
 			catch (Exception e) {
 				System.out.println(ERROR_INITIALIZATION_MSG);
@@ -58,32 +61,36 @@ public class XMLReader {
 	
 	
 	/**
-	 * Metodo per leggere l'intero file xml e stampare a video tutti gli elementi. 
+	 * Metodo per leggere l'intero file xml e stampare a video tutti gli elementi.
+	 * <p>
+	 * Il metodo legge continuamente il file e per ogni evento letto esegue le relative istruzioni, formattando in maniera adeguata le 
+	 * informazioni e stampandole. 
+	 * </p> 
 	 */
 	public void readAndPrintXML() {
 		try {
-			while(xmlr.hasNext()) {
-				switch(xmlr.getEventType()) {
-					case XMLStreamConstants.START_DOCUMENT:
+			while(xmlr.hasNext()) {  // Fin tanto che ci sono eventi disponibili, continua a leggere il file
+				switch(xmlr.getEventType()) {		
+					case XMLStreamConstants.START_DOCUMENT:  // Evento START_DOCUMENT: Inizio del documento
 						System.out.println("Start Read Doc " + inputFile.getName());
 						break;
-					case XMLStreamConstants.START_ELEMENT:
-						System.out.println("Tag : " + xmlr.getLocalName());
+					case XMLStreamConstants.START_ELEMENT:	 // Evento START_ELEMENT: Lettura di un tag di apertura		
+						System.out.println("Tag : " + xmlr.getLocalName());   
 						for (int i=0; i<xmlr.getAttributeCount(); i++)
-							System.out.printf("--> Attribute %s : %s\n", xmlr.getAttributeLocalName(i), xmlr.getAttributeValue(i));
+							System.out.printf("--> Attribute %s : %s\n", xmlr.getAttributeLocalName(i), xmlr.getAttributeValue(i));  // Stampa anche tutti gli attributi del tag
 						break;
-					case XMLStreamConstants.END_ELEMENT:
+					case XMLStreamConstants.END_ELEMENT:   // Evento END_ELEMENT: Lettura di un tag di chiusura
 						System.out.println("End-tag : " + xmlr.getLocalName());
 						break;
-					case XMLStreamConstants.COMMENT:
+					case XMLStreamConstants.COMMENT:	// Evento COMMENT: Lettura di un commento
 						System.out.println("// " + xmlr.getText());
 						break;
-					case XMLStreamConstants.CHARACTERS:
+					case XMLStreamConstants.CHARACTERS:		// Evento CHARACTERS: Lettura del contenuto di un elemento
 						if(xmlr.getText().trim().length() > 0)
 							System.out.println("Content : " + xmlr.getText());
 						break;
 				}
-				xmlr.next();
+				xmlr.next();   // Leggi il prossimo evento
 			}
 		} 
 		catch (XMLStreamException e) {
@@ -95,8 +102,52 @@ public class XMLReader {
 	
 	
 	
+	
 	/**
 	 * Metodo per leggere passo passo ogni elemento del file xml
+	 * <p>
+	 * Ad ogni invocazione di questo metodo, il lettore legge un singolo evento del file xml e restituisce una stringa descrittiva
+	 * di tale evento.
+	 * </p>
+	 * 
+	 * <p>
+	 * <table>
+	 * 		<tr>
+	 * 			<th>EVENTO</th>
+	 * 			<th>STRINGA RESTITUITA</th>
+	 * 		</tr>
+	 * 		<tr>
+	 * 			<td>START_DOCUMENT</td>
+	 * 			<td>"Start Read Doc :
+	 *				 - Name : *nome file*
+	 *				 - Full Path : *percorso completo del file*
+	 * 		         - Encoding : *encoding*
+	 * 				 - XML Version : *versione xml*"</td>
+	 * 		</tr>
+	 * 		<tr>
+	 * 			<td>START_ELEMENT</td>
+	 * 			<td>"Tag : *nome tag*
+	 * 		  		  --> Attribute *nome attributo 1* : *valore attributo 1*	
+	 * 		          --> Attribute *nome i-esimo attributo* : *valore i-esimo attributo*"</td>
+	 * 		</tr>
+	 * 		<tr>
+	 * 			<td>END_ELEMENT</td>
+	 * 			<td>"End-Tag : *nome tag*"</td>
+	 * 		</tr>
+	 * 		<tr>
+	 * 			<td>COMMENT</td>
+	 * 			<td>"// Comment : *commento*"</td>
+	 * 		</tr>
+	 * 		<tr>
+	 * 			<td>CHARACTERS</td>
+	 * 			<td>"Content of Tag *nome tag* : *contenuto del tag*"</td>
+	 * 		</tr>
+	 * 		<tr>
+	 * 			<td>END_DOCUMENT</td>
+	 * 			<td>"Doc closed."</td>
+	 * 		</tr>
+	 * <table>
+	 * </p>
 	 */
 	public String readNext() {
 		String s = "";
@@ -188,7 +239,7 @@ public class XMLReader {
 	 * Metodo per gestire l'evento COMMENT.
 	 */
 	private String handleCOMMENT() {
-		String s = String.format("// Comment : ", xmlr.getText());
+		String s = String.format("// Comment : %s", xmlr.getText());
 		return xmlr.isWhiteSpace() ? null : s;
 	}
 	
