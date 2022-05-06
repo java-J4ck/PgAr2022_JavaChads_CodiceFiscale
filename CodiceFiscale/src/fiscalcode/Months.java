@@ -1,4 +1,4 @@
-package fiscalCode;
+package fiscalcode;
 
 public enum Months {
 	JENUARY('A',31),
