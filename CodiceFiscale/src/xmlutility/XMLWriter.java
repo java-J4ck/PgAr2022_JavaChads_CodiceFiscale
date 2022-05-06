@@ -10,7 +10,7 @@ import fiscalcode.FiscalCodeManager;
 import fiscalcode.FiscalCodeOperation;
 import main.Person;
 
-public class XmlWriter 
+public class XMLWriter 
 {
     public static void XmlWrite(ArrayList<Person>allPerson, FiscalCodeManager fiscalCodeManager) {
     	

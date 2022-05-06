@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import fiscalcode.FiscalCodeManager;
 import xmlutility.XMLUtility;
-import xmlutility.XmlWriter;
+import xmlutility.XMLWriter;
 
 
 public class Main {
@@ -36,7 +36,7 @@ public class Main {
 		p = XMLUtility.readPerson(i, c);
 		allFiscalCode = XMLUtility.readFiscalCode(fiscalCodeFile);
 		FiscalCodeManager manager= new FiscalCodeManager(allFiscalCode);
-		XmlWriter.XmlWrite(p,manager);
+		XMLWriter.XmlWrite(p,manager);
 		
 
 		
