@@ -9,56 +9,64 @@ import main.Person;
 import main.Comune;
 
 
+/**
+ * Classe contenente metodi per l'estrazione delle informazioni dai 3 file xml.
+ * Per ricavare le informazioni, vengono interpretate le stringhe restituite dalla classe {@link XMLReader}. 
+ */
+
 
 public class XMLUtility {
-
 	
-
-	
-	
-	
-	
-	
-	private static final String ATTRIBUTE_NUMERO_MSG = "The root element 'persone' does not containt the attribute 'numero'.";
 	private static final String ENCODING_MSG = "The specified file is not encoded in UTF-8.";
 	
-
-
-
+	/**
+	 * Metodo per costruire l'arrayList di comuni. Estrare ed interpreta le informazioni da un file xml formattato in uno specifico modo:
+	 * 
+	 * <comuni numero="NUMERO COMUNI">
+     * 		<comune>
+     *			<nome>NOME COMUNE</nome>
+     *			<codice>CODICE CATASTALE</codice>
+     * 		</comune>
+	 * </comuni>
+	 * 
+	 * @param cFile File xml da leggere (di tipo <b>File</b>)
+	 * @return arraList di comuni con i dati letti dal file
+	 */
 	public static ArrayList<Comune> readComuni(File cFile) {
-		XMLReader xmlr = new XMLReader(cFile);
+		XMLReader xmlr = new XMLReader(cFile);		// Inizializza un nuovo lettore
 		ArrayList<Comune> comuni = new ArrayList<Comune>();
 		String nome = "";
 		String codice = "";
-		String last = xmlr.readNext();
+		String last = xmlr.readNext();  // Leggi il primo evento
 		
 		
-		if(!last.contains("UTF-8")) {
+		if(!last.contains("UTF-8")) {		// Controlla se l'encoding dell'xml e' corretto 
 			System.out.println(ENCODING_MSG);
 			return null;
 		}
 		System.out.println(last);  // Stampa la descrizione del file, ovvero il primo evento letto dal lettore xml
 		
 		
-		while(!last.contains("closed")) {
-			if(last.contains("comune")) {
+		while(!last.contains("closed")) {    // Finche' il lettore non restituisce la stringa relativa all'evento END_DOCUMENT, continua a leggere
+			
+			if(last.contains("comune")) {	
 				
 				for(;;) {
 					last = xmlr.readNext();
-					if(last.contains("nome")) {
+					if(last.contains("nome")) {  
 						nome = xmlr.readNext();
-						nome = nome.substring(nome.lastIndexOf(":") + 2);
-						xmlr.readNext();
-						if(nome.length() > 0 && codice.length() > 0) {
-							comuni.add(new Comune(nome, codice));
+						nome = nome.substring(nome.lastIndexOf(":") + 2);	// Estrai dalla stringa restituita dal lettore il nome del comune	
+						xmlr.readNext();   // Scarta l'evento successivo, ovvero quello del tag di chiusura
+						if(nome.length() > 0 && codice.length() > 0) {	// Se sono stati gia' acquisiti sia nome che codice del comune, inizializza un nuovo comune
+							comuni.add(new Comune(nome, codice));       // e aggiungilo all'arrayList. Infine esci dal ciclo for
 							nome = codice = "";
 							break;
 						}
 					}
 					else if(last.contains("codice")) {
 						codice = xmlr.readNext();
-						codice = codice.substring(codice.lastIndexOf(":") + 2);
-						xmlr.readNext();
+						codice = codice.substring(codice.lastIndexOf(":") + 2);    // Estrai dalla stringa restituita dal lettore il codice del comune
+						xmlr.readNext();    // Scarta l'evento successivo, ovvero quello del tag di chiusura
 						if(nome.length() > 0 && codice.length() > 0) {
 							comuni.add(new Comune(nome, codice));
 							nome = codice = "";
@@ -85,7 +93,23 @@ public class XMLUtility {
 	
 	
 	
-	
+	/**
+	 * Metodo per costruire l'arrayList di persone. Estrare ed interpreta le informazioni da un file xml formattato in uno specifico modo:
+	 * 
+	 * <persone numero="NUMERO PERSONE">
+     *		<persona id="0">
+     * 			<nome>NOME</nome>
+     *			<cognome>COGNOME</cognome>
+     *			<sesso>SESSO</sesso>
+     *			<comune_nascita>NOME COMUNE DI NASCITA</comune_nascita>
+     *			<data_nascita>DATA DI NASCITA</data_nascita>
+     * 		</persona>
+	 * </persone>
+	 * 
+	 * @param pFile File xml da leggere (di tipo <b>File</b>)
+	 * @param comuni arrayList dei comuni, necessario per reperire i codici catastali
+	 * @return arrayList di persone con i dati letti dal file
+	 */
 	
 	public static ArrayList<Person> readPerson(File pFile, ArrayList<Comune> comuni) {
 		XMLReader xmlr = new XMLReader(pFile);
@@ -113,7 +137,6 @@ public class XMLUtility {
 		}
 		*/
 		
-		
 		while(!last.contains("closed")) {
 				
 			last = xmlr.readNext();
@@ -123,25 +146,19 @@ public class XMLUtility {
 				
 				for(;;) {
 					
-					if(last.contains(": nome")) {
-						nome = xmlr.readNext();
-						//System.out.println(nome);
+					if(last.contains(": nome")) {    // Per evitare errori, controlla se la stringa restituita dal lettore contiene ": nome" (e non solo "nome"
+						nome = xmlr.readNext();		 //	in quanto "nome" e' contenuta anche in "cognome")
 						nome = nome.substring(nome.lastIndexOf(":") + 2);
-						//System.out.println(nome);
 						xmlr.readNext();
 					}
 					else if(last.contains(": cognome")) {
 						cognome = xmlr.readNext();
-						//System.out.println(cognome);
 						cognome = cognome.substring(cognome.lastIndexOf(":") + 2);
-						//System.out.println(cognome);
 						xmlr.readNext();
 					}
 					else if(last.contains("sesso")) {
 						sesso = xmlr.readNext();
-						//System.out.println(sesso);
 						sesso = sesso.substring(sesso.lastIndexOf(":") + 2);
-						//System.out.println(sesso);
 						xmlr.readNext();
 					}
 					else if(last.contains("comune_nascita")) {
@@ -178,12 +195,18 @@ public class XMLUtility {
 
 	
 	
-	
-	
-	
-	
-	
-	
+	/**
+	 * Metodo per costruire l'arrayList di codici fiscali. Estrare ed interpreta le informazioni da un file xml formattato in uno specifico modo:
+	 * 
+	 * <codici size="NUMERO CODICI FISCALI">
+     *		<codice>CODICE FISCALE</codice>
+     *		<codice>CODICE FISCALE</codice>
+     * 		<codice>CODICE FISCALE</codice>
+     * </codici>
+	 * 
+	 * @param fcFile File xml da leggere (di tipo <b>File</b>)
+	 * @return arrayList di stringe contente i codici fiscali letti dal file
+	 */
 	
 	public static ArrayList<String> readFiscalCode(File fcFile) {
 		XMLReader xmlr = new XMLReader(fcFile);

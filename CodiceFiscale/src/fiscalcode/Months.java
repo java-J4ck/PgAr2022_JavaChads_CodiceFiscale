@@ -3,9 +3,7 @@ package fiscalcode;
 
 
 /**
- * enumerazione contentente tutti i <b>mesi</b> con rispettiva <b>lettera</b> e <b>numero di giorni</b>
- * 
- *
+ * Enumerazione contentente tutti i <b>mesi</b> con rispettiva <b>lettera</b> e <b>numero di giorni</b>
  */
 
 public enum Months {
@@ -32,15 +30,15 @@ public enum Months {
 	}
 
 	/**
-	 * restituisce la lettera del mese secondo l'algoritmo del codice fiscale
-	 * @return lettera del mese
+	 * Restituisce la lettera del mese secondo l'algoritmo del codice fiscale
+	 * @return Lettera del mese
 	 */
 	public char getMonthLetter() {
 		return monthLetter;
 	}
 	/**
-	 * numero dei giorni del mese
-	 * @return giorni del mese
+	 * Restituisce il numero dei giorni del mesee
+	 * @return Giorni del mese
 	 */
 	public int daysOfMonth() {
 		return daysOfMonth;

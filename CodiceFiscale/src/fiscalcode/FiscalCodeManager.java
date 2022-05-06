@@ -1,27 +1,33 @@
 package fiscalcode;
 
 import java.util.ArrayList;
+
+
 /**
- * gestisce la <b>tabella dei codici fiscali</b> e li divide in:
+ * Classe che gestisce la <b>lista dei codici fiscali</b> e li divide in:
  * <ol>
- * <li>codici spaiati</li> 
- * <li>codici errati</li> 
+ * <li>Codici spaiati</li> 
+ * <li>Codici errati</li> 
  * </ol>
  *
  */
+
 public class FiscalCodeManager {
 
-	private  ArrayList<String> allFiscalCode;//tutti i codici fiscali
-	private  ArrayList<String> UnmatchedFiscalCode;//codici fiscali spaiati
+	private  ArrayList<String> allFiscalCode; // Tutti i codici fiscali
+	private  ArrayList<String> UnmatchedFiscalCode; // Codici fiscali spaiati
 	
-	public FiscalCodeManager(ArrayList<String> allFiscalCode) {//all'inizio i codici spaiati sono uguali alla tabella
+	
+	public FiscalCodeManager(ArrayList<String> allFiscalCode) { // all'inizio i codici spaiati sono uguali alla tabella
 		this.allFiscalCode = allFiscalCode;
 		this.UnmatchedFiscalCode=new ArrayList<String>(allFiscalCode);
 	}
 	
+	
+	
 	/**
-	 * restituisce tutti i codici fiscali errati
-	 * @return arrayList dei codici sbagliati
+	 * Restituisce tutti i codici fiscali errati
+	 * @return arrayList dei codici fiscali sbagliati
 	 */
 	public ArrayList<String> getWrongFiscalCode() {
 		ArrayList<String> wrongFiscalCode=new ArrayList<String>();
@@ -30,10 +36,15 @@ public class FiscalCodeManager {
 		}
 		return wrongFiscalCode;
 	}
+	
+	
+	
+	
 	/**
-	 * restituisce il codice fiscale se è presente in tabella o assente altrimenti
-	 * @param fiscalCode
-	 * @return o fiscalCode o ASSENTE
+	 * Controlla se un determinato codice fiscale e' presente nella lista dei codici fiscali. Ritorna il codice fiscale stesso se e' presente nella lista,
+	 * la stringa "ASSENTE" in caso contrario
+	 * @param fiscalCode Codice fiscale di cui si vuole verificare la presenza nella lista
+	 * @return Il codice fiscale (se esso e' presente nella lista) o la stringa "ASSENTE"
 	 */
 	public String getFiscalCode(String fiscalCode) {
 		String returnedFiscalCode="ASSENTE";
@@ -45,13 +56,21 @@ public class FiscalCodeManager {
 		
 	}
 	
+	
+	/**
+	 * @return La lista dei codici fiscali
+	 */
+	
 	public ArrayList<String> getAllFiscalCode() {
 		return allFiscalCode;
 	}
+	
+	
+
 	/**
-	 * restituisce i codici fiscali spaiati
-	 * 
+	 * @return La lista dei codici fiscali spaiati
 	 */
+	
 	public ArrayList<String> getUnmatchedFiscalCode() {
 		UnmatchedFiscalCode.removeAll(getWrongFiscalCode());//rimuove quelli errati
 		return UnmatchedFiscalCode;

@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ControlCharacter {
-	//tabella di conversione per caratteri dispari
-	private static final Map<Character,Integer> ODD_ALFANUMERIC_VALUE=new HashMap<Character,Integer>(){{
+	// Tabella di conversione per caratteri dispari
+	private static final Map<Character,Integer> ODD_ALFANUMERIC_VALUE = new HashMap<Character,Integer>(){{
 		put('0',1);put('9',21);put('I',19);put('R',8);
 		put('1',0);put('A',1);put('J',21);put('S',12);
 		put('2',5);put('B',0);put('K',2);put('T',14);
@@ -16,8 +16,8 @@ public class ControlCharacter {
 		put('7',17);put('G',15);put('P',3);put('Y',24);
 		put('8',19);put('H',17);put('Q',6);put('Z',23);
 	}};
-	//tabella di conversione per caratteri pari
-	private static final Map<Character,Integer> EVEN_ALFANUMERIC_VALUE=new HashMap<Character,Integer>(){{
+	// Tabella di conversione per caratteri pari
+	private static final Map<Character,Integer> EVEN_ALFANUMERIC_VALUE = new HashMap<Character,Integer>(){{
 		put('0',0);put('9',9);put('I',8);put('R',17);
 		put('1',1);put('A',0);put('J',9);put('S',18);
 		put('2',2);put('B',1);put('K',10);put('T',19);
@@ -28,8 +28,8 @@ public class ControlCharacter {
 		put('7',7);put('G',6);put('P',15);put('Y',24);
 		put('8',8);put('H',7);put('Q',16);put('Z',25);
 	}};
-	//tabella di conversione per resto
-	private static final Map<Integer,Character> REMAINDER_TABLE= new HashMap<Integer,Character> (){{
+	// Tabella di conversione per resto
+	private static final Map<Integer,Character> REMINDER_TABLE = new HashMap<Integer,Character> (){{
 		put(0,'A');put(7,'H');put(14,'O');put(21,'V');
 		put(1,'B');put(8,'I');put(15,'P');put(22,'W');
 		put(2,'C');put(9,'J');put(16,'Q');put(23,'X');
@@ -40,11 +40,12 @@ public class ControlCharacter {
 		
 	}};
 
-	private static final int DIVIDE_CONSTANT=26;
+	private static final int DIVIDE_CONSTANT = 26;
+	
 	/**
-	 * restituisce il carattere di controllo
-	 * @param partialFiscalCode codice fiscale senza carattere di controllo
-	 * @return carattere di controllo
+	 * Metodo che restituisce il carattere di controllo di uno specifico codice fiscale.
+	 * @param partialFiscalCode Codice fiscale senza carattere di controllo
+	 * @return Carattere di controllo relativo al codice fiscale fornito in ingresso
 	 */
 	public static char getControlCharacter(String partialFiscalCode) {
 		int sum=0;
@@ -53,7 +54,7 @@ public class ControlCharacter {
 			if((i+1)%2==0) sum+=EVEN_ALFANUMERIC_VALUE.get(partialFiscalCode.charAt(i));//se il carattere è pari ne somma il valore secondo la tabella
 			else sum+=ODD_ALFANUMERIC_VALUE.get(partialFiscalCode.charAt(i));//lo stesso se il carattere è dispari
 		}
-		controlCharacter=REMAINDER_TABLE.get(sum%DIVIDE_CONSTANT);//prende il carattere dalla tabella del resto
+		controlCharacter=REMINDER_TABLE.get(sum%DIVIDE_CONSTANT);//prende il carattere dalla tabella del resto
 		return controlCharacter;
 	}
 }
