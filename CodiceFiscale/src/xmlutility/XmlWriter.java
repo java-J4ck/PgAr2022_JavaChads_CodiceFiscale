@@ -44,7 +44,7 @@ public class XmlWriter
 			  xmlw.writeStartElement("Persone"); 
 			  xmlw.writeAttribute("numero",String.format("%d", allPerson.size()));//apri persone
 			  for (int i = 0; i < allPerson.size(); i++) {
-				  
+				  xmlw.writeStartElement("Persona"); 
 				  xmlw.writeStartElement("Nome"); // start elemento nome
 				  xmlw.writeAttribute("id", Integer.toString(i)); //scrittura id
 				  xmlw.writeCharacters(allPerson.get(i).getName()); // ...e content dato 
@@ -70,7 +70,7 @@ public class XmlWriter
 				  String fiscalCode=FiscalCodeOperation.FiscalCodeGenerator(allPerson.get(i));
 				  xmlw.writeCharacters(fiscalCodeManager.getFiscalCode(fiscalCode)); // ...e content dato 
 				  xmlw.writeEndElement(); // chiusura di data di nascita
-				  
+				  xmlw.writeEndElement(); // chiudi persona
 				  
 			  }
 			  xmlw.writeEndElement();//chiusura persone
